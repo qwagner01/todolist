@@ -7,7 +7,12 @@ var port = process.env.PORT || 5000;
 app.use(express.static(__dirname + '/public')); //That's a double underscore
 
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 
+
+app.post("/list",function(req,res){
+  console.log(req.body)
+})
 
 //the specific route handler below is not really needed anymore since by default express looks to server index.html
 app.get('/', function(req, res) {

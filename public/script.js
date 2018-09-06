@@ -1,5 +1,6 @@
 var list = []
-$(document).ready(function(){  var button = document.getElementById('button');
+$(document).ready(function(){
+  var button = document.getElementById('button');
   var input = document.getElementById('input');
   var read = document.getElementById('read');
   read.addEventListener('click', sendList);
@@ -17,16 +18,19 @@ function add(){
     ul.appendChild(li);
     list.push(inputVal);
   }
-  inputVal.value = "";
+  $("input").val('');
 
 }
 
 function sendList(){
+  console.log(list)
   var xhttp = new XMLHttpRequest();
-  var arrStr = encodeURIComponent(JSON.stringify(list));
-  console.log(arrStr)
+  arrStr = JSON.stringify(list)
+  // var arrStr = encodeURIComponent(JSON.stringify(list));
+  // console.log(arrStr)
   xhttp.open("POST","/list",true);
-  xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhttp.setRequestHeader('Content-Type', 'application/json');
+  // xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhttp.send(arrStr);
   list = [];
   $('li').remove();
