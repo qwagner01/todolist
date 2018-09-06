@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 
 
 app.post("/list",function(req,res){
+  data = req.body;
   console.log(req.body)
+  console.log(data[0])
 })
 
 //the specific route handler below is not really needed anymore since by default express looks to server index.html
