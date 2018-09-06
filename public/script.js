@@ -1,33 +1,34 @@
+var list = []
 window.onload = function(){
-var button = document.getElementById('button');
-var input = document.getElementById('input');
-
-
-button.addEventListener('click',add)
-
+  var button = document.getElementById('button');
+  var input = document.getElementById('input');
+  var read = document.getElementById('read');
+  read.addEventListener('click', sendList);
+  button.addEventListener('click',add)
+}
 
 function add(){
   var li = document.createElement("li");
-  var inputValue = document.getElementById("input").value;
-  var t = document.createTextNode(inputValue);
+  var inputVal = document.getElementById("input").value;
+  var t = document.createTextNode(inputVal);
   li.appendChild(t);
-  if (inputValue === '') {
+  if (inputVal === '') {
     alert("Write Something!");
   } else {
     ul.appendChild(li);
+    list.push(inputVal);
   }
-  inputValue.value = "";
+  inputVal.value = "";
 
 }
 
-
-
-
-
-
-
-
-
-
+function sendList(){
+  var xhttp = new XMLHttpRequest();
+  var arrStr = encodeURIComponent(JSON.stringify(list));
+  console.log(arrStr)
+  xhttp.open("POST","/list",true);
+  xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhttp.send(arrStr);
+  list = [];
 
 }
