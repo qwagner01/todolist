@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var port = process.env.PORT || 5000;
 var db;
 
-const mongoURL = "mongodb://localhost:27017/somename"
+const mongoURL = "mongodb://localhost:27017/mytestdb"
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
@@ -16,7 +16,7 @@ assert.equal(null, err);
 console.log("connected")
 
 
-  db = client.db("exampledb")
+  db = client.db("mytestdb")
 
 })
 
@@ -33,12 +33,15 @@ app.use(bodyParser.json());
 
 app.post('/list', function(req, res) {
    // Insert JSON straight into MongoDB
-  db.collection('docs').insert(req.body, function (err, result) {
-      if (err)
-         res.send('Error');
-      else
-        res.send('Success');
-
+   console.log(req.body);
+  db.collection('practice').insertOne({y:24}, function (err, result) {
+      if (err){
+      console.log('error')
+         //res.send('Error');
+      }else{
+      console.log('success')
+        //res.send('Success');
+}
   });
 });
 

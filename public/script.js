@@ -1,24 +1,27 @@
 var list = []
+var visibleList = document.getElementById('ul');
 $(document).ready(function(){
   var button = document.getElementById('button');
   var input = document.getElementById('input');
   var read = document.getElementById('read');
+
   read.addEventListener('click', sendList);
   button.addEventListener('click',add)
 });
 
 function add(){
-  var li = document.createElement("li");
-  var inputVal = document.getElementById("input").value;
-  var t = document.createTextNode(inputVal);
-  li.appendChild(t);
-  if (inputVal === '') {
+   var li = document.createElement("li");
+   var inputVal = document.getElementById("input").value;
+   var t = document.createTextNode(inputVal);
+   li.appendChild(t);
+
+   if (inputVal === '') {
     alert("Write Something!");
-  } else {
-    ul.appendChild(li);
-    list.push(inputVal);
-  }
-  $("input").val('');
+   } else {
+     visibleList.appendChild(li);
+     list.push(inputVal);
+   }
+  //$("input").val('');
 
 }
 
