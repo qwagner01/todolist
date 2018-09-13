@@ -46,6 +46,22 @@ app.post('/list', function(req, res) {
   });
 });
 
+app.get('/respo', function(req, res) {
+console.log('recieved');
+db.collection('practice').find({}).toArray(function (err, result){
+console.log(result);
+
+})
+
+
+})
+
+app.post('/del', function(req, res) {
+console.log('deleting')
+db.collection('practice').deleteMany({})
+})
+
+
 //the specific route handler below is not really needed anymore since by default express looks to server index.html
 app.get('/', function(req, res) {
   res.sendFile('index.html');

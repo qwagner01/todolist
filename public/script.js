@@ -1,12 +1,17 @@
 var list = []
+
 var visibleList = document.getElementById('ul');
 window.onload = function(){
   var button = document.getElementById('button');
+  var rd = document.getElementById('read')
   var input = document.getElementById('input');
-  var read = document.getElementById('read');
-
-  read.addEventListener('click', sendList);
+  var subm = document.getElementById('sub');
+  var clr = document.getElementById('clear');
+  subm.addEventListener('click', sendList);
   button.addEventListener('click',add)
+  rd.addEventListener('click',readList)
+  clr.addEventListener('click', clrList)
+
 };
 
 function add(){
@@ -15,23 +20,38 @@ function add(){
    var t = document.createTextNode(inputVal);
    lis.appendChild(t);
    visibleList.appendChild(lis);
-
    list.push(inputVal);
+   $('#input').val('')
+}
 
+
+function readList(){
+  var request = new XMLHttpRequest
+
+request.open("GET",'/respo',true)
+request.send();
 
 
 }
 
+
+
+function clrList(){
+  var xhttp = new XMLHttpRequest
+  xhttp.open("POST",'/del',true)
+xhttp.send();
+}
+
 function sendList(){
-  console.log(list)
+ var data
+  var key = document.getElementById("name").value;
   var xhttp = new XMLHttpRequest();
-  var arrStr = JSON.stringify({x: list})
-  // var arrStr = encodeURIComponent(JSON.stringify(list));
-  // console.log(arrStr)
+  var contents = {};
+  contents[key] = list;
+  var arrStr = JSON.stringify(contents)
   xhttp.open("POST","/list",true);
   xhttp.setRequestHeader('Content-Type', 'application/json');
-  // xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhttp.send(arrStr);
   list = [];
-  //$('li').remove();
+  $('li').remove();
 }
