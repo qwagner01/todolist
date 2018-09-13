@@ -11,7 +11,7 @@ var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
 const assert = require('assert')
 
-mongoClient.connect(mongoURL, function(err,client){
+mongoClient.connect(mongoURL, {useNewUrlParser: true}, function(err,client){
 assert.equal(null, err);
 console.log("connected")
 
@@ -23,6 +23,7 @@ console.log("connected")
 app.use(express.static(__dirname + '/public')); //That's a double underscore
 
 app.use(bodyParser.json());
+
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -32,15 +33,15 @@ app.use(bodyParser.json());
 // })
 
 app.post('/list', function(req, res) {
-   // Insert JSON straight into MongoDB
+
    console.log(req.body);
-  db.collection('practice').insertOne({y:24}, function (err, result) {
+  db.collection('practice').insertOne(req.body, function (err, result) {
       if (err){
       console.log('error')
-         //res.send('Error');
+
       }else{
       console.log('success')
-        //res.send('Success');
+
 }
   });
 });

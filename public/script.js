@@ -1,34 +1,31 @@
 var list = []
 var visibleList = document.getElementById('ul');
-$(document).ready(function(){
+window.onload = function(){
   var button = document.getElementById('button');
   var input = document.getElementById('input');
   var read = document.getElementById('read');
 
   read.addEventListener('click', sendList);
   button.addEventListener('click',add)
-});
+};
 
 function add(){
-   var li = document.createElement("li");
+   var lis = document.createElement("li");
    var inputVal = document.getElementById("input").value;
    var t = document.createTextNode(inputVal);
-   li.appendChild(t);
+   lis.appendChild(t);
+   visibleList.appendChild(lis);
 
-   if (inputVal === '') {
-    alert("Write Something!");
-   } else {
-     visibleList.appendChild(li);
-     list.push(inputVal);
-   }
-  //$("input").val('');
+   list.push(inputVal);
+
+
 
 }
 
 function sendList(){
   console.log(list)
   var xhttp = new XMLHttpRequest();
-  arrStr = JSON.stringify(list)
+  var arrStr = JSON.stringify({x: list})
   // var arrStr = encodeURIComponent(JSON.stringify(list));
   // console.log(arrStr)
   xhttp.open("POST","/list",true);
@@ -36,5 +33,5 @@ function sendList(){
   // xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhttp.send(arrStr);
   list = [];
-  $('li').remove();
+  //$('li').remove();
 }
