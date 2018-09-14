@@ -28,8 +28,18 @@ function add(){
 function readList(){
   var request = new XMLHttpRequest
 
+request.addEventListener('load', function(){
+
+console.log(this.responseText);
+var data = JSON.parse(this.responseText);
+
+
+})
 request.open("GET",'/respo',true)
+
 request.send();
+
+
 
 
 }
@@ -46,8 +56,7 @@ function sendList(){
  var data
   var key = document.getElementById("name").value;
   var xhttp = new XMLHttpRequest();
-  var contents = {};
-  contents[key] = list;
+  var contents = {key , list};
   var arrStr = JSON.stringify(contents)
   xhttp.open("POST","/list",true);
   xhttp.setRequestHeader('Content-Type', 'application/json');

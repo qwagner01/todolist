@@ -4,7 +4,9 @@ var app = express();
 var bodyParser = require('body-parser');
 var port = process.env.PORT || 5000;
 var db;
-
+var name;
+var key;
+var obj;
 const mongoURL = "mongodb://localhost:27017/mytestdb"
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
@@ -24,17 +26,9 @@ app.use(express.static(__dirname + '/public')); //That's a double underscore
 
 app.use(bodyParser.json());
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-
-// app.post("/list",function(req,res){
-//   db.collections('docs').create({item:req.body});
-//
-// })
 
 app.post('/list', function(req, res) {
-
-   console.log(req.body);
+ obj = req.body.key;
   db.collection('practice').insertOne(req.body, function (err, result) {
       if (err){
       console.log('error')
@@ -48,13 +42,17 @@ app.post('/list', function(req, res) {
 
 app.get('/respo', function(req, res) {
 console.log('recieved');
-db.collection('practice').find({}).toArray(function (err, result){
+db.collection('practice').find({"key": obj}).toArray(function (err, result){
 console.log(result);
+res.send(result);
+console.log(obj);
 
 })
 
 
 })
+
+
 
 app.post('/del', function(req, res) {
 console.log('deleting')
@@ -62,7 +60,7 @@ db.collection('practice').deleteMany({})
 })
 
 
-//the specific route handler below is not really needed anymore since by default express looks to server index.html
+
 app.get('/', function(req, res) {
   res.sendFile('index.html');
 });
