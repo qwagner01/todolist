@@ -7,7 +7,7 @@ var db;
 var name;
 var key;
 var obj;
-const mongoURL = "mongodb://localhost:27017/mytestdb"
+const mongoURL = "mongodb://AirMormon:Brownhouse1@ds245082.mlab.com:45082/exampledb"
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
@@ -18,7 +18,7 @@ assert.equal(null, err);
 console.log("connected")
 
 
-  db = client.db("mytestdb")
+  db = client.db("exampledb")
 
 })
 
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 
 app.post('/list', function(req, res) {
-  db.collection('practice').insertOne(req.body, function (err, result) {
+  db.collection('docs').insertOne(req.body, function (err, result) {
       if (err){
       console.log('error')
 
@@ -50,7 +50,7 @@ app.post('/name', function(req, res) {
 
 app.get('/respo', function(req, res) {
 console.log(obj);
-db.collection('practice').find({"key": obj }).toArray(function (err, result){
+db.collection('docs').find({"key": obj }).toArray(function (err, result){
 res.send(result);
 
 })
@@ -61,7 +61,8 @@ res.send(result);
 
 
 app.post('/del', function(req, res) {
-db.collection('practice').deleteOne({"key": obj})
+db.collection('docs').deleteMany({"key": obj})
+
 })
 
 

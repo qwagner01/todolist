@@ -30,17 +30,48 @@ function add(){
 
 
 function readList(){
-
+  var key = document.getElementById("name").value;
+  var arrStr = JSON.stringify(key)
   var request = new XMLHttpRequest
 
 request.addEventListener('load', function(){
 
-var data = this.responseText;
-console.log(data);
+
+var data = JSON.parse(this.responseText);
+
+//console.log(data);
+
+data.forEach(function(val,i){
+  var listfinal = val.list;
+
+  var lis = document.createElement("li");
+  var inputVal = data
+  var t = document.createTextNode(listfinal);
+  lis.appendChild(t);
+  visibleList.appendChild(lis);
+  list.push(listfinal);
+
+
+
+});
+
+
+// var lis = document.createElement("li");
+// var inputVal = data
+// var t = document.createTextNode(inputVal);
+// lis.appendChild(t);
+// visibleList.appendChild(lis);
+// list.push(inputVal);
+
 })
 request.open("GET",'/respo',true)
 
 request.send();
+
+
+
+
+
 }
 
 
@@ -49,7 +80,7 @@ function clrList(){
   var xhttp = new XMLHttpRequest
   xhttp.open("POST",'/del',true)
 xhttp.send();
-
+$('li').remove();
 }
 
 function sendList(){
