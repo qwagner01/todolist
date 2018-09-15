@@ -28,7 +28,6 @@ app.use(bodyParser.json());
 
 
 app.post('/list', function(req, res) {
- obj = req.body.key;
   db.collection('practice').insertOne(req.body, function (err, result) {
       if (err){
       console.log('error')
@@ -40,12 +39,19 @@ app.post('/list', function(req, res) {
   });
 });
 
+
+app.post('/name', function(req, res) {
+ obj = req.body.key;
+});
+
+
+
+
+
 app.get('/respo', function(req, res) {
-console.log('recieved');
-db.collection('practice').find({"key": obj}).toArray(function (err, result){
-console.log(result);
-res.send(result);
 console.log(obj);
+db.collection('practice').find({"key": obj }).toArray(function (err, result){
+res.send(result);
 
 })
 
@@ -55,8 +61,7 @@ console.log(obj);
 
 
 app.post('/del', function(req, res) {
-console.log('deleting')
-db.collection('practice').deleteMany({})
+db.collection('practice').deleteOne({"key": obj})
 })
 
 
