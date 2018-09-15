@@ -68,10 +68,6 @@ request.open("GET",'/respo',true)
 
 request.send();
 
-
-
-
-
 }
 
 
