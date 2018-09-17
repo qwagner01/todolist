@@ -1,1 +1,3 @@
-Hey Connor
+this is the link to the project: 
+
+https://wagnerashtontodolist.herokuapp.com/
