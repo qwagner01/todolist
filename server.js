@@ -1,3 +1,4 @@
+require('dotenv').load();
 var express = require('express');
 var XMLHttpRequest = require("XMLHttpRequest").XMLHttpRequest;
 var app = express();
@@ -8,11 +9,15 @@ var name;
 var key;
 var obj;
 //const mongoURL = "mongodb://staples:staples1@ds245082.mlab.com:45082/exampledb"
-const mongoURL = "mongodb://localhost:27017/mytestdb"
+//const mongoURL = "mongodb://localhost:27017/mytestdb"
+const mongoURL = process.env.OTHERDBPATH
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false})
 const assert = require('assert')
+
+
+
 
 mongoClient.connect(mongoURL, {useNewUrlParser: true}, function(err,client){
 assert.equal(null, err);
@@ -74,5 +79,5 @@ app.get('/', function(req, res) {
 });
 
 app.listen(port, function() {
-  console.log('Great! The server is running and waiting for traffic on port 5000.')
+  console.log(port)
 });
