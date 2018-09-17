@@ -8,8 +8,7 @@ var db;
 var name;
 var key;
 var obj;
-//const mongoURL = "mongodb://staples:staples1@ds245082.mlab.com:45082/exampledb"
-//const mongoURL = "mongodb://localhost:27017/mytestdb"
+
 const mongoURL = process.env.DBPATH
 const mongoClient = require('mongodb').MongoClient;
 var jsonParser = bodyParser.json();
@@ -24,7 +23,7 @@ assert.equal(null, err);
 console.log("connected")
 
 
-  db = client.db("exampledb")
+  db = client.db("mytestdb")
 
 })
 
@@ -34,15 +33,8 @@ app.use(bodyParser.json());
 
 
 app.post('/list', function(req, res) {
-  db.collection('docs').insertOne(req.body, function (err, result) {
-//db.collection('practice')
-//       if (err){
-//       console.log('error')
-//
-//       }else{
-//       console.log('success')
-//
-// }
+  db.collection('practice').insertOne(req.body, function (err, result) {
+
   });
 });
 
@@ -56,8 +48,8 @@ app.post('/name', function(req, res) {
 
 
 app.get('/respo', function(req, res) {
-db.collection('docs').find({"key": obj }).toArray(function (err, result){
-//db.collection('practice')
+db.collection('practice').find({"key": obj }).toArray(function (err, result){
+
 res.send(result);
 
 })
@@ -68,15 +60,15 @@ res.send(result);
 
 
 app.post('/del', function(req, res) {
-db.collection('docs').deleteOne({"key": obj})
-//db.collection('practice')
+db.collection('practice').deleteOne({"key": obj})
+
 })
 
 
 
-// app.get('/', function(req, res) {
-//   res.sendFile('index.html');
-// });
+app.get('/', function(req, res) {
+  res.sendFile('index.html');
+});
 
 app.listen(port, function() {
   console.log(port)
