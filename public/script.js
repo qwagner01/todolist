@@ -3,7 +3,6 @@ var list = []
 var visibleList = document.getElementById('ul');
 window.onload = function(){
   var button = document.getElementById('button');
-  var nam = document.getElementById('nambutton');
   var rd = document.getElementById('read')
   var input = document.getElementById('input');
   var subm = document.getElementById('sub');
@@ -11,7 +10,6 @@ window.onload = function(){
 
   subm.addEventListener('click', sendList);
   button.addEventListener('click',add)
-  nam.addEventListener('click',sendName)
   rd.addEventListener('click',readList)
   clr.addEventListener('click', clrList)
 
@@ -30,6 +28,7 @@ function add(){
 
 
 function readList(){
+  sendName();
   var key = document.getElementById("name").value;
   var arrStr = JSON.stringify(key)
   var request = new XMLHttpRequest
@@ -56,13 +55,6 @@ data.forEach(function(val,i){
 });
 
 
-// var lis = document.createElement("li");
-// var inputVal = data
-// var t = document.createTextNode(inputVal);
-// lis.appendChild(t);
-// visibleList.appendChild(lis);
-// list.push(inputVal);
-
 })
 request.open("GET",'/respo',true)
 
@@ -80,6 +72,7 @@ $('li').remove();
 }
 
 function sendList(){
+  sendName();
  var data
   var key = document.getElementById("name").value;
   var xhttp = new XMLHttpRequest();
@@ -91,6 +84,7 @@ function sendList(){
   list = [];
   $('li').remove();
 }
+
 
 function sendName(){
   var nam = document.getElementById("name").value;
