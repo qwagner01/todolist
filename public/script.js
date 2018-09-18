@@ -7,7 +7,9 @@ window.onload = function(){
   var input = document.getElementById('input');
   var subm = document.getElementById('sub');
   var clr = document.getElementById('clear');
-
+  var nam = document.getElementById('name');
+  nam.setAttribute( "autocomplete", "off" )
+input.setAttribute( "autocomplete", "off" )
   subm.addEventListener('click', sendList);
   button.addEventListener('click',add)
   rd.addEventListener('click',readList)
